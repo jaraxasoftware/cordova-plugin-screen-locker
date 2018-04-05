@@ -7,6 +7,7 @@ import org.apache.cordova.CordovaInterface;
 
 import android.app.admin.DevicePolicyManager;
 import android.content.Context;
+import android.os.Build;
 import android.os.PowerManager;
 
 import android.util.Log;
@@ -112,8 +113,7 @@ public class ScreenLocker extends CordovaPlugin {
                 cordova.getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        KeyguardManager myKM = (KeyguardManager) cordova.getActivity().getSystemService(Context.KEYGUARD_SERVICE);
-                        boolean isPhoneLocked = myKM.inKeyguardRestrictedInputMode();
+                        boolean isPhoneLocked = Build.VERSION.SDK_INT < 20 ? !powerManager.isScreenOn() : !powerManager.isInteractive();
                         Log.v(TAG, "ScreenLocker.isLocked:" + isPhoneLocked);
                         callbackContext.success(isPhoneLocked ? "1" : "0");
                     }
