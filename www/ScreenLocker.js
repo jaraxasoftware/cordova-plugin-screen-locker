@@ -31,6 +31,18 @@ var screenLocker = {
                 "timeout": timeout
             }]
         );
+     },
+     isLocked: function(successCallback, errorCallback) {
+
+        exec(
+            function(result) {  // success callback function
+                successCallback(result === "1")
+            },
+            errorCallback, // error callback function
+            'ScreenLocker', // mapped to our native Java class called "ScreenLocker"
+            'isLocked', // with this action name
+            []
+        );
      }
 }
 

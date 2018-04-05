@@ -27,7 +27,15 @@ var errorCallback = function(e) {
 };
 
 cordova.plugins.screenLocker.unlock(successCallback, errorCallback, 10);  // 10 seconds unlock timeout (third parameter is optional)
-cordova.plugins.screenLocker.lock(successFun, errorFun);  // release screen unlock
+cordova.plugins.screenLocker.lock(successCallback, errorCallback);  // release screen unlock
+
+var isLockedCallback = function(isLocked) {
+  console.log('screen locked ' + isLocked);
+  // do some staff here
+};
+
+cordova.plugins.screenLocker.isLocked(isLockedCallback, errorCallback);
+
 ```
 
 ## License

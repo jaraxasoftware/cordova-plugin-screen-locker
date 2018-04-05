@@ -26,6 +26,7 @@ public class ScreenLocker extends CordovaPlugin {
     public static final String TAG = "ScreenLocker";
     public static final String ACTION_UNLOCK = "unlock";
     public static final String ACTION_LOCK = "lock";
+    public static final String ACTION_IS_LOCKED = "isLocked";
     public static PowerManager powerManager;
     public static PowerManager.WakeLock wakeLock;
 
@@ -58,6 +59,7 @@ public class ScreenLocker extends CordovaPlugin {
 
         try {
             if (ACTION_LOCK.equals(action)) {
+                Log.v(TAG, "ScreenLocker received ACTION_LOCK");
                 cordova.getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -100,6 +102,20 @@ public class ScreenLocker extends CordovaPlugin {
                         }
                         Log.v(TAG, "ScreenLocker received SUCCESS:" + action);
                         callbackContext.success();
+                    }
+                });
+
+                result = true;
+            } else if (ACTION_IS_LOCKED.equals(action)) {
+                Log.v(TAG, "ScreenLocker received ACTION_IS_LOCKED");
+
+                cordova.getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        KeyguardManager myKM = (KeyguardManager) cordova.getActivity().getSystemService(Context.KEYGUARD_SERVICE);
+                        boolean isPhoneLocked = myKM.inKeyguardRestrictedInputMode();
+                        Log.v(TAG, "ScreenLocker.isLocked:" + isPhoneLocked);
+                        callbackContext.success(isPhoneLocked ? "1" : "0");
                     }
                 });
 
