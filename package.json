@@ -4,8 +4,10 @@
     "cordova_name": "ScreenLocker",
     "description": "Plugin allows lock and unlock device screen by calling plugin",
     "license": "Apache 2.0",
-    "repo": "https://github.com/jaraxasoftware/cordova-plugin-screen-locker",
-    "issue": "",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jaraxasoftware/cordova-plugin-screen-locker.git"
+    },
     "keywords": [
         "cordova",
         "device",
@@ -14,9 +16,11 @@
         "screen",
         "android"
     ],
-    "platforms": [
-        "android"
-    ],
-    "engines": [],
+    "cordova": {
+        "id": "cordova-plugin-screen-locker",
+        "platforms": [
+            "android"
+        ]
+	},
     "englishdoc": ""
 }
